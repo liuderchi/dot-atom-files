@@ -1,0 +1,97 @@
+// add icon before grammar in status bar
+// it's imported by styles.less by atom
+// it's using atom package: file-icon
+
+// NOTE should be located in same directory as style.less
+
+@import "packages/file-icons/styles/icons";  // to use the defined icons
+// NOTE icon color ref: packages/file-icons/styles/file-icons
+
+status-bar grammar-selector-status {
+  // NOTE customize some icon to add space after icon
+
+  // grammar-selector-status a[data-grammar="C"] { &::before{ .c-icon; } }  // file-icons: .c-icon;
+  a[data-grammar="CSS"],
+  a[data-grammar*="CoffeeScript"] {
+    &::before {
+      .fa; content: "\f0f4\ ";  // .coffee-icon;
+      // .medium-maroon;
+    }
+  }
+  a[data-grammar="Less"] {
+    &::before{
+      .fa; content: "\f13c\ "; // .css3-icon
+      // .dark-blue;
+      // .medium-blue;
+    }
+  }
+
+  a[data-grammar="GitHub Markdown"] {
+    &::before{
+      .octicons; content: "\f0c9\ ";  // .markdown-icon;
+      // .medium-blue;
+    }
+  }
+  a[data-grammar*="HTML"] {
+    &::before{
+      .fa; content: "\f13b\ ";  // .html5-icon;
+      // .medium-orange;
+    }
+  }
+
+  a[data-grammar="JavaScript"] {
+    &::before{
+      .mf; content: "\f129\ "; top: 1px; font-size: 14px;  // js-icon
+    }
+  }
+  a[data-grammar="JavaScript (JSX)"] {
+    &::before{
+      .fi; content: "\e9e6\ "; top: 1px; font-size: 14px; // jsx-icon
+    }
+  }
+  a[data-grammar="Java"] {
+    &::before {
+      .mf; content: "\f126\ "; top: 2px; font-size: 16px; // java-icon
+    }
+  }
+  a[data-grammar="JSON"] {
+    &::before{
+      .mf; content: "\f10e\ "; top: 1px;  // sql-icon
+      // .fa; content: "\f1c0\ ";
+      // .medium-yellow;
+    }
+  }
+  a[data-grammar="Python"] {
+    &::before{
+      .mf; content: "\f14c"; top: 1px;  // python-icon
+      // .dark-blue;
+    }
+  }
+  a[data-grammar="Sass"],
+  a[data-grammar="SCSS"] {
+    &::before{
+      .devicons; content: "\e64b"; // .sass-icon
+      // .dark-pink;
+      // .medium-pink;
+    }
+  }
+  a[data-grammar="Shell Script"] {
+    &::before{
+      .fi; content: "\f0c8\ "; font-size: 14px;  // .terminal-icon;
+      // .auto(yellow);
+    }
+  }
+
+}
+
+
+// NOTE snippet from package file-icons
+/*
+@import "packages/file-icons/styles/colors"; // to use the colours
+@import "packages/file-icons/styles/icons";  // to use the defined icons
+@import "packages/file-icons/styles/items";  // for pane-tab-selector
+@{pane-tab-selector}, .icon-file-text {
+  &[data-name$=".rb"]          { .medium-red;             } // Colours icon and filename
+  &[data-name$=".rb"]:before   { .ruby-icon; .medium-red; } // Colours icon only
+}
+*/

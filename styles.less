@@ -1,0 +1,319 @@
+/* IMPORTS, VARS*/
+
+@import "ui-variables";
+@import "syntax-variables";
+// usage: http://flight-manual.atom.io/hacking-atom/sections/creating-a-theme/#use-in-packages
+
+@import "./styles_ext_icons";   // NOTE you can split code into multiple files
+
+@_lightGreen: rgba(59,255,0,.85);
+@_greyGreen: hsl( 95, 38%, 62%);
+@_atomGreen: #5FB57D;
+@_androidGreen: #A4C639;
+@_matrixGreen: #1ec503;
+@_cursorOrange: #FF6600;
+
+@_listItemRed: #ff869a;
+
+@_treeViewFontSize: @font-size + 6px;  // from ui-variables
+@_treeViewFontSizeHovered: @_treeViewFontSize + 4px;  // from ui-variables
+
+@_projFindResFontSize: @font-size + 2px;
+@_projFindResFontSizeSummary: @_projFindResFontSize + 2px;
+@_projFindResFontSizeMatchCount: @_projFindResFontSize + 4px;
+@_projFindResFontSizeMatch: @_projFindResFontSize;
+
+// ===============  TREE VIEW  ===============
+
+.tree-view {  // hover on item
+  font-size: @_treeViewFontSize;
+
+  // animation of file entry, folder entry
+  li.file, .header.list-item {
+    transition: padding 1.5s, font-size 1.5s; // HOVER-OFF
+    padding: 0px;
+    &:hover {
+      transition: padding 1s, font-size 1s;   // HOVER-ON
+      padding: 15px 0px;
+      font-size: @_treeViewFontSizeHovered;
+    }
+  }
+}
+
+.tree-view-resizer {  // adaptive width
+  width: auto!important;
+  //._enable-tree-view-mouse-hover(3s, 3s);
+}
+
+._enable-tree-view-mouse-hover(@onTransTime, @offTransTime) {
+  // from https://discuss.atom.io/t/hover-sidebar-for-folder-view-to-help-with-long-tree-nesting/14434/4
+  min-width: 5px!important;
+  max-width: 5px;
+  transition: max-width @offTransTime;
+
+  &:hover {
+    transition: max-width @onTransTime;
+    max-width: 10000px;
+  }
+}
+
+.symbols-tree-view {  // symbols-tree-view package
+  .list-item {
+    font-size: @_treeViewFontSize;
+    color: @_atomGreen!important;
+
+    // hover animation
+    transition: padding 1.5s, font-size 1.5s; // HOVER-OFF
+    padding: 0px;
+    &:hover {
+      transition: padding 1s, font-size 1s;   // HOVER-ON
+      padding: 15px 0px;
+      font-size: @_treeViewFontSizeHovered;
+    }
+  }
+  // ._enable-tree-view-mouse-hover(10s, 5s); // width hover animation
+  width: 300px!important;  //auto!important;
+}
+
+// =============== FIND AND REPLACE =================
+
+.project-find, .find-and-replace {
+  // TODO transition on height/visibility/opacity
+  visibility: inherit;
+  transition: visibility 2s;
+
+  // opacity: 0.2;
+  // transition: opacity
+
+  // min-height: 200px;
+  // max-height: 200px;
+  // transition: max-height 2s;
+
+  // visibility: visible!important;
+}
+
+// result of project-find
+.preview-header {  // search result summary
+  font-size: @_projFindResFontSizeSummary;
+
+  button.btn:first-of-type {  // collapse all button
+    font-size: @_projFindResFontSizeMatchCount;
+    &::before {  content: "\f066\ ";  }  // fa-expand
+  }
+  button.btn:nth-of-type(2) {  // expand all button
+    font-size: @_projFindResFontSizeMatchCount;
+    &::before {  content: "\f065\ ";  }  // fa-compress
+  }
+}
+li.path {   // path
+  .path-details {
+    font-size: @_projFindResFontSize;
+    span.path-match-number {  // match count
+      font-size: @_projFindResFontSizeMatchCount;
+    }
+  }
+  ul.matches {
+    font-size: @_projFindResFontSizeMatch;
+  }
+}
+
+
+// =============== SETTING PAGE ======================
+
+.settings-view {
+  font-size: 16px;
+}
+
+// ================ TAB TITLE ======================
+.tab-bar .tab {
+  .title {
+    font-size: 16px;
+  }
+  &.active {
+    border-top: @_greyGreen 1px solid;
+  }
+}
+
+// ================ STATUS BAR =====================
+
+status-bar { // footer status bar
+  // span.icon-color-mode{  // if in DEV mode
+  status-bar-launch-mode {  // if in DEV mode (v1.15)
+    color: @background-color-warning!important;
+    &::after{
+      content: "DEV";
+    }
+  }
+
+  a.line-ending-tile {  // line ending
+    // TODO warning color when newline not LF, currently element attr is not changed
+    // color: @text-color-info;
+  }
+
+  encoding-selector-status a:not([data-encoding="utf8"]) {
+    color: @text-color-warning;
+  }
+
+}
+
+// ================ TEXT EDITOR =====================
+
+._fold-marker-content(@content, @color) {  // folded function code
+  &::after {
+    content: @content;
+    color: @color;
+    font-size: 1.25em;
+  }
+}
+._fold-marker-add-divide-line() {  // folded function code
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-bottom: 1px dashed @syntax-invisible-character-color;
+  }
+}
+._markdown-heading-add-divide-line(@borderWidth, @borderStyle) { // markdown heading
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-bottom: @borderWidth @borderStyle;
+  }
+}
+
+linter-message > span {
+  &:first-child{    // linter type
+    background-color: @base-border-color;
+  }
+  &:nth-child(3){   // message body
+    font-family: Ubuntu, Cantarell, sans-serif;
+    font-size: @font-size + 2px;
+  }
+}
+
+
+// NOTE atom_v1.13 deprecate ::shadow
+atom-text-editor.editor {
+  .cursor {
+    border-color: @_cursorOrange;  //@_matrixGreen;
+    border-width: 3px;
+  }
+
+  .fold-marker {  // folded code
+    // ._fold-marker-add-divide-line();
+    ._fold-marker-content("\f141", @text-color-success); // candidate: font-awesome U2026 "…", "\f101", "\f141", "\f149",
+    // http://astronautweb.co/snippet/font-awesome/
+  }
+
+  .syntax--source.syntax--gfm {  // markdown text
+    .syntax--markup {             // code text style
+      -webkit-font-smoothing: auto;
+      &.syntax--raw {
+        color: @_atomGreen;
+      }
+      &.syntax--strike.syntax--gfm {
+        text-decoration: line-through;
+        color: @text-color-subtle;
+      }
+    }
+    .syntax--variable.syntax--unordered.syntax--list {  // list item number
+      color: @_listItemRed;
+    }
+    .syntax--markup.syntax--heading { // heading
+      color: @text-color-info;
+      font-weight: bold;
+      &.syntax--heading-2 {
+        ._markdown-heading-add-divide-line(1px, dotted);
+      }
+      &.syntax--heading-3, &.syntax--heading-4, &.syntax--heading-5 {
+        border-bottom: 1px dotted;
+      }
+    }
+    .syntax--link {
+      .syntax--punctuation.syntax--definition.syntax--gfm {
+        color: @text-color-info;
+      }
+      .syntax--markup.syntax--underline.syntax--link.syntax--gfm {
+        color: @_listItemRed;
+        .syntax--punctuation.syntax--definition.syntax--gfm {
+          color: @_listItemRed;
+        }
+      }
+    }
+    .syntax--comment.syntax--hr {
+      ._markdown-heading-add-divide-line(1px, dotted);
+    }
+  }
+
+  .highlights {  // highlighted text
+    .highlight-selected .region {    // selected word
+      border: 1px solid @text-color-info;
+    }
+    .current-result .region {  // when page scrolled compare with last selection
+      border: 2px solid @text-color-warning;
+    }
+    .find-result .region {     // find result
+      border: 1px solid @text-color-warning;
+    }
+    .highlight.flash .region {  // transition color when justed focused result
+      background-color: rgba(255,255,255,0.1);
+    }
+
+  }
+
+}
+
+
+
+// ============= PLAYGROUND ===============
+
+
+/*
+ * markdown-preview-enhanced custom style
+ */
+.markdown-preview-enhanced-custom {
+
+  // background: @base-border-color;
+  background: @base-border-color;
+
+  h1, h2, h3, h4, h5 {
+    color: @text-color-info;
+    font-weight: bold;
+  }
+
+  li, ul, p {
+    color: @text-color;
+    strong {
+      color: @text-color-highlight;
+    }
+  }
+
+  // custom pdf output style
+  @media print {
+  }
+
+  // custom phantomjs png/jpeg export style
+  &.phantomjs-image {
+  }
+
+  //custom phantomjs pdf export style
+  &.phantomjs-pdf {
+  }
+
+  // custom presentation style
+  .preview-slides .slide,
+  &[data-presentation-mode] {
+    // eg
+    // background-color: #000;
+  }
+}
+
+// please don't modify the .markdown-preview-enhanced section below
+.markdown-preview-enhanced {
+  .markdown-preview-enhanced-custom() !important;
+}
