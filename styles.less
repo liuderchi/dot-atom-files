@@ -41,8 +41,8 @@
 }
 
 .tree-view-resizer {  // adaptive width
-  width: auto!important;
-  //._enable-tree-view-mouse-hover(3s, 3s);
+  width: auto!important;                 // OPT 1
+  // ._enable-tree-view-mouse-hover(3s, 3s);   // OPT 2
 }
 
 ._enable-tree-view-mouse-hover(@onTransTime, @offTransTime) {
@@ -216,13 +216,16 @@ atom-text-editor.editor {
       &.syntax--raw {
         color: @_atomGreen;
       }
-      &.syntax--strike.syntax--gfm {
+      &.syntax--strike.syntax--gfm {     // strike line
         text-decoration: line-through;
         color: @text-color-subtle;
       }
     }
-    .syntax--variable.syntax--unordered.syntax--list {  // list item number
+    .syntax--variable.syntax--list {     // list item
+      &.syntax--unordered, &.syntax--ordered {
       color: @_listItemRed;
+        font-style: oblique;
+    }
     }
     .syntax--markup.syntax--heading { // heading
       color: @text-color-info;
@@ -234,7 +237,7 @@ atom-text-editor.editor {
         border-bottom: 1px dotted;
       }
     }
-    .syntax--link {
+    .syntax--link {                    // link
       .syntax--punctuation.syntax--definition.syntax--gfm {
         color: @text-color-info;
       }
@@ -245,7 +248,7 @@ atom-text-editor.editor {
         }
       }
     }
-    .syntax--comment.syntax--hr {
+    .syntax--comment.syntax--hr {      // horizontal rule
       ._markdown-heading-add-divide-line(1px, dotted);
     }
   }
