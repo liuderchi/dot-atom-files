@@ -1,0 +1,85 @@
+# NOTE repeated keymap Overwrites former keymap
+# NOTE key Binding Resolver, use ',' as OR operator in selector
+
+# === NOTE CMD for Linux ONLY ===
+'.platform-linux':
+  # === FOCUS ON SPLITTED PANE ===
+  'cmd-left': 'window:focus-pane-on-left'
+  'cmd-right': 'window:focus-pane-on-right'
+  'cmd-up': 'window:focus-pane-above'
+  'cmd-down': 'window:focus-pane-below'
+
+# === NOTE CMD for Windows ONLY ===
+'.platform-win32':
+  # === FOCUS ON SPLITTED PANE ===
+  'ctrl-cmd-left': 'window:focus-pane-on-left'
+  'ctrl-cmd-right': 'window:focus-pane-on-right'
+  'ctrl-cmd-up': 'window:focus-pane-above'
+  'ctrl-cmd-down': 'window:focus-pane-below'
+
+# === NOTE Common CMD FOR Linux/Windows ===
+'.platform-win32, .platform-linux':
+
+  # === MISC (ALL Platform) ===
+  # 'ctrl-,': 'settings-view:open'    #emmet overide 'ctrl-,'
+  # === FOCUS ON SPLITTED PANE ===
+  'cmd-z': 'window:focus-previous-pane'          # easier keymap
+  # === MOVE SPLITTED PANE ===
+  'shift-cmd-left': 'window:move-active-item-to-pane-on-left'
+  'shift-cmd-right': 'window:move-active-item-to-pane-on-right'
+  'shift-cmd-up': 'window:move-active-item-to-pane-above'
+  'shift-cmd-down': 'window:move-active-item-to-pane-below'
+  # === SPLIT and MOVE PANE ===
+  'ctrl-shift-cmd-left': 'pane:split-left-and-move-active-item'
+  'ctrl-shift-cmd-right': 'pane:split-right-and-move-active-item'
+  'ctrl-shift-cmd-up': 'pane:split-up-and-move-active-item'
+  'ctrl-shift-cmd-down': 'pane:split-down-and-move-active-item'
+  # === Atom DOCK ===
+  'f5 left': 'window:toggle-left-dock'
+  'f5 right': 'window:toggle-right-dock'
+  'f5 down': 'window:toggle-bottom-dock'
+
+# === NOTE Common CMD FOR Linux/Windows IN TEXT-EDITOR ===
+'.platform-win32 atom-text-editor, .platform-linux atom-text-editor':
+
+  # === MOVE SELECTION LEFT/RIGHT ===
+  'alt-shift-left': 'editor:move-selection-left'
+  'alt-shift-right': 'editor:move-selection-right'
+
+  # === MISC (ALL Platform) ===
+  'f4': 'find-and-replace:replace-next'
+  'ctrl-alt-space': 'autocomplete-plus:activate'
+  'ctrl-alt-w': 'editor:toggle-soft-wrap'  #emmet overide 'ctrl-alt-w'
+  'ctrl-\\': 'unset!'  #reset to default, cancel emmet's overide 'ctrl-alt-w'
+  'ctrl-e': 'emmet:expand-abbreviation'
+  'alt-pageup': 'util:move-up-big'      # NOTE CMD in init.coffee
+  'alt-pagedown': 'util:move-down-big'  # NOTE CMD in init.coffee
+  'ctrl-!': 'editor:fold-at-indent-level-1'
+  'ctrl-@': 'editor:fold-at-indent-level-2'
+  'ctrl-#': 'editor:fold-at-indent-level-3'
+  'ctrl-$': 'editor:fold-at-indent-level-4'
+  'ctrl-%': 'editor:fold-at-indent-level-5'
+  'ctrl-^': 'editor:fold-at-indent-level-6'
+  'ctrl-~': 'editor:unfold-all'
+
+  # === NOTE TEMP CMD in init.coffee
+  'ctrl-i': 'markdown:italic-text'
+  # === NOTE CMD FOR Package: Markdown Writer === #
+  'ctrl-{': 'markdown-writer:jump-to-previous-heading'
+  'ctrl-}': 'markdown-writer:jump-to-next-heading'
+  'ctrl-I': 'markdown-writer:toggle-italic-text'
+  'ctrl-b': 'markdown-writer:toggle-bold-text'  #overide toggle-buffer-find
+  # === NOTE CMD FOR Package: Split Diff === #
+  'ctrl-d t': 'split-diff:toggle'
+  'ctrl-d up': 'split-diff:prev-diff'
+  'ctrl-d down': 'split-diff:next-diff'
+  'ctrl-d left': 'split-diff:copy-to-left'
+  'ctrl-d right': 'split-diff:copy-to-right'
+  # === NOTE CMD FOR Package: Ctrl-Dir-Scroll === #
+  'alt-up': 'ctrl-dir-scroll:scroll-up'
+  'alt-down': 'ctrl-dir-scroll:scroll-down'
+  'cmd-alt-up': 'ctrl-dir-scroll:scroll-up-big'
+  'cmd-alt-down': 'ctrl-dir-scroll:scroll-down-big'
+
+# 'atom-text-editor:not([mini])':
+  # 'ctrl-e': 'emmet:expand-abbreviation' #overide core find and replace
