@@ -1,0 +1,98 @@
+"_note": "to apply snippet require reloading atom or press ctrl-alt-r"
+
+".source.js":
+  "map(fcn(...))":
+    prefix: "mapf"
+    body: """
+      map(function($1){
+        $2
+        return ;
+      });"""
+
+  "sort(fcn(...))":
+    prefix: "sortf"
+    body: """
+      sort(function(${1:a}, ${2:b}){return $3;});"""
+
+  "it('spec', ()=>{})":
+    prefix: "it"
+    body: """
+      it('${1:spec description}', (done) => {
+        done();
+        $2
+      });"""
+
+  "import... export...":
+    prefix: "init"
+    body: """
+      import React from 'react'
+
+      const ${1:myComponent} = () => {
+        return (
+          <${2:div}></${2:div}>
+        )
+      }
+
+      export default ${1:myComponent}"""
+
+".source.coffee":
+  "it('msg', ()->{})":
+    prefix: "it"
+    body: """
+      it "${1:spec description}", ->
+        ${2:foo()}"""
+
+".source.java":
+  "System.out.println()":
+    prefix: "sout"
+    body: "System.out.println(${1:\"\"});$2"
+
+".source.php":
+  ".'<br>'":
+    prefix: "br"
+    body: ".'<br>'"
+
+".source.python":
+  "__init__(self)":
+    prefix: "init"
+    body: """
+      def __init__(self, ${1:arg}):
+          self.${1:arg} ="""
+
+  "if __name__ == '__main__'":
+    prefix: "ifmain"
+    body: """
+      if __name__ == '__main__':
+          ${1:foo()}"""
+
+".source.gfm":
+  "":
+    prefix: "tag (font-awesome U+f02b)"  # fa-tag
+    body: ""
+  "":
+    prefix: "date (font-awesome U+f073)"  # fa-calendar
+    body: ""
+  "":
+    prefix: "linux (font-awesome U+f17c)"  # fa-linux
+    body: ""
+  "":
+    prefix: "windows (font-awesome U+f17a)"  # fa-windows
+    body: ""
+  "":
+    prefix: "apple (font-awesome U+f179)"  # fa-apple
+    body: ""
+  "∴":
+    prefix: "so (therefore) (U+2234)"
+    body: "∴ "
+  "∵":
+    prefix: "bc (because) (U+2235)"
+    body: "∵ "
+  "✅":
+    prefix: "v (check) (U+2705)"
+    body: "✅ "
+  "✘":
+    prefix: "x (cross) (U+2718)"  # alt: ❌ U+274C
+    body: "✘ "
+  "💡":
+    prefix: "idea (bulb) (U+1F4A1)"   # alt:  fa-lightbulb-o
+    body: "💡 "
