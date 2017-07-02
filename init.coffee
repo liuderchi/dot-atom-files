@@ -15,6 +15,13 @@ atom.commands.add 'atom-text-editor', 'markdown:paste-as-link', ->
   selection.insertText "[#{selection.getText()}](#{clipboardText})"  # template string
   # paste text via ATOM API
 
+atom.commands.add 'atom-text-editor', 'markdown:paste-as-link-in-bottom', ->
+  return unless editor = atom.workspace.getActiveTextEditor()
+  selection = editor.getLastSelection()
+  selectedText = selection.getText()
+  url = atom.clipboard.read()
+  selection.insertText "[#{selectedText}]: #{url} \"#{selectedText}\""
+
 atom.commands.add 'atom-text-editor', 'markdown:italic-text', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   editor.getLastSelection().insertText "*#{editor.getLastSelection().getText()}*"
@@ -31,7 +38,9 @@ atom.commands.add 'atom-text-editor', 'markdown:paste-h1-filename', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   path = require('path')
   filenameNoExt = /(.*?)(?:\.[^.]+)?$/.exec(path.basename editor.getPath())[1]
-  fileNameCap = filenameNoExt.replace(/[\W_]/g, ' ').split(' ').map((w)->w.charAt(0).toUpperCase()+w.slice(1)).join(' ')
+  nonWordRegex = /[!-.\:-\@\[-\`\{-~]/g   # /[\W_]/g
+  fileNameCap = filenameNoExt.replace(nonWordRegex, ' ').split(' ').map((w)->w.charAt(0).toUpperCase()+w.slice(1)).join(' ')
+  # BUG highlight error for regex = /[\/]/
 
   editor.getLastSelection().insertText "# #{fileNameCap}\n"
 
@@ -54,7 +63,8 @@ atom.commands.add 'atom-text-editor', 'markdown:insert-template-for-init', ->
   path = require('path')
   filename = if editor.getPath() then path.basename(editor.getPath()) else 'untitled'
   filenameNoExt = /(.*?)(?:\.[^.]+)?$/.exec(filename)[1]
-  fileNameCap = filenameNoExt.replace(/[\W_]/g, ' ').split(' ').map((w)->w.charAt(0).toUpperCase()+w.slice(1)).join(' ')
+  nonWordRegex = /[!-.\:-\@\[-\`\{-~]/g   # /[\W_]/g
+  fileNameCap = filenameNoExt.replace(nonWordRegex, ' ').split(' ').map((w)->w.charAt(0).toUpperCase()+w.slice(1)).join(' ')
 
   ## Date
   dateIntToStr = (num) ->
@@ -253,6 +263,7 @@ atom.commands.add 'atom-workspace', 'util:react-functional-component-template', 
 
              export default #{fileNameCap}"""
   editor.getLastSelection().insertText template
+
 
 atom.commands.add 'atom-workspace', 'util:react-class-based-component-template', ->
   return unless editor = atom.workspace.getActiveTextEditor()
