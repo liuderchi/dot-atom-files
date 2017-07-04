@@ -1,4 +1,4 @@
-# NOTE repeated keymap Overwrites former keymap
+# NOTE repeated keymap Overides former keymap
 # NOTE key Binding Resolver, use ',' as OR operator in selector
 
 # === NOTE CMD for Linux, Mac ONLY ===
@@ -6,13 +6,13 @@
   # === FOCUS ON SPLITTED PANE ===
   'cmd-left': 'window:focus-pane-on-left'    # NOTE mac: require unset
   'cmd-right': 'window:focus-pane-on-right'  # NOTE mac: require unset
-  'cmd-up': 'window:focus-pane-above'        # NOTE mac: overwrite
-  'cmd-down': 'window:focus-pane-below'      # NOTE mac: overwrite
+  'cmd-up': 'window:focus-pane-above'        # NOTE mac: overide
+  'cmd-down': 'window:focus-pane-below'      # NOTE mac: overide
   # === MOVE SPLITTED PANE ===
   'shift-cmd-left': 'window:move-active-item-to-pane-on-left'     # NOTE mac: require unset
   'shift-cmd-right': 'window:move-active-item-to-pane-on-right'   # NOTE mac: require unset
-  'shift-cmd-up': 'window:move-active-item-to-pane-above'         # NOTE mac: overwrite core:select-to-top
-  'shift-cmd-down': 'window:move-active-item-to-pane-below'       # NOTE mac: overwrite core:select-to-bottom
+  'shift-cmd-up': 'window:move-active-item-to-pane-above'         # NOTE mac: overide core:select-to-top
+  'shift-cmd-down': 'window:move-active-item-to-pane-below'       # NOTE mac: overide core:select-to-bottom
 
 # === NOTE CMD for Windows ONLY ===
 '.platform-win32':
@@ -31,19 +31,27 @@
 '.platform-darwin':
   # === FOCUS ON PREVIOUS SPLITTED PANE ===
   'ctrl-z': 'window:focus-previous-pane'  # origin: cmd-z is undo
+  # === MOVE PANE ===
+  'shift-alt-cmd-left': 'pane:move-item-left'    # NOTE overide origin
+  'shift-alt-cmd-right': 'pane:move-item-right'  # NOTE overide origin
 
-'.platform-darwin atom-text-editor':
+'.platform-darwin atom-text-editor:not([mini])':
   # === FOCUS ON SPLITTED PANE ===
   'cmd-left': 'unset!'
   'cmd-right': 'unset!'
   # === MOVE SPLITTED PANE ===
   'shift-cmd-left': 'unset!'  # NOTE unset editor:select-first-char-of-line
   'shift-cmd-right': 'unset!' # NOTE unset editor:select-to-end-of-line
+  # === MOVE PANE ===
+  'ctrl-shift-right': 'unset!'  # NOTE unset emmet:select-next-item
+  'ctrl-shift-left': 'unset!'   # NOTE unset emmet:select-previous-item
+
   # === ADD SELECTION ABOVE / BELOW  ===
   'alt-shift-up': "editor:add-selection-above"  # NOTE ctrl-shift-up is Mac OS op
   'alt-shift-down': "editor:add-selection-below"
   # === MISC (MacOS) ===
   'f3': 'find-and-replace:find-next'   # origin: 'cmd-g'
+  'shift-f3': 'find-and-replace:find-previous'   # origin: 'shift-cmd-g'
   'shift-delete': 'editor:delete-line'
 # ===
 
@@ -54,11 +62,6 @@
 
 # === NOTE Common CMD FOR Linux/Windows/MacOS ===
 '.platform-win32, .platform-linux, .platform-darwin':
-  # === MOVE SPLITTED PANE ===
-  'shift-cmd-left': 'window:move-active-item-to-pane-on-left'     # NOTE mac: require unset
-  'shift-cmd-right': 'window:move-active-item-to-pane-on-right'   # NOTE mac: require unset
-  'shift-cmd-up': 'window:move-active-item-to-pane-above'         # NOTE mac: overwrite core:select-to-top
-  'shift-cmd-down': 'window:move-active-item-to-pane-below'       # NOTE mac: overwrite core:select-to-bottom
   # === SPLIT and MOVE PANE ===
   'ctrl-shift-cmd-left': 'pane:split-left-and-move-active-item'
   'ctrl-shift-cmd-right': 'pane:split-right-and-move-active-item'
@@ -72,8 +75,8 @@
 # === NOTE Common CMD FOR Linux/Windows IN TEXT-EDITOR ===
 '.platform-win32 atom-text-editor, .platform-linux atom-text-editor':
   # === MOVE SELECTION LEFT/RIGHT ===
-  'alt-shift-left': 'editor:move-selection-left'   # overwrite editor:select-to-previous-subword-boundary
-  'alt-shift-right': 'editor:move-selection-right'  # overwrite editor:select-to-next-subword-boundary
+  'alt-shift-left': 'editor:move-selection-left'   # overide editor:select-to-previous-subword-boundary
+  'alt-shift-right': 'editor:move-selection-right'  # overide editor:select-to-next-subword-boundary
   # === MISC ===
   'ctrl-alt-space': 'autocomplete-plus:activate'
 
@@ -81,7 +84,7 @@
 '.platform-win32 atom-text-editor, .platform-linux atom-text-editor, .platform-darwin atom-text-editor':
   # === MISC (ALL Platform) ===
   'f4': 'find-and-replace:replace-next'
-  'ctrl-alt-w': 'editor:toggle-soft-wrap'  # overwrite emmet:wrap-with-abbreviation
+  'ctrl-alt-w': 'editor:toggle-soft-wrap'  # overide emmet:wrap-with-abbreviation
   'alt-pageup': 'util:move-up-big'      # NOTE CMD in init.coffee
   'alt-pagedown': 'util:move-down-big'  # NOTE CMD in init.coffee
   'ctrl-!': 'editor:fold-at-indent-level-1'
