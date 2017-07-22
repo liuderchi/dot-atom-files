@@ -1,6 +1,23 @@
 "_note": "to apply snippet require reloading atom or press ctrl-alt-r"
 
+".source":
+  "BUG":
+    prefix: "bug"
+    body: "BUG"
+  "NOTE":
+    prefix: "note"
+    body: "NOTE"
+  "TODO":
+    prefix: "todo"
+    body: "TODO"
+
 ".source.js":
+  "(() => {...})()":
+    prefix: "iife"
+    body: """
+      (() => {
+
+      })()"""
   "map(fcn(...))":
     prefix: "mapf"
     body: """
@@ -66,33 +83,61 @@
           ${1:foo()}"""
 
 ".source.gfm":
-  "":
-    prefix: "tag (font-awesome U+f02b)"  # fa-tag
+  "":    # fa-tag U+f02b
+    prefix: "tag"
     body: ""
-  "":
-    prefix: "date (font-awesome U+f073)"  # fa-calendar
+  "":    # fa-calendar U+f073
+    prefix: "date"
     body: ""
-  "":
-    prefix: "linux (font-awesome U+f17c)"  # fa-linux
+  "":    # fa-linux U+f17c
+    prefix: "linux"
     body: ""
-  "":
-    prefix: "windows (font-awesome U+f17a)"  # fa-windows
+  "":    # fa-windows U+f17a
+    prefix: "windows"
     body: ""
-  "":
-    prefix: "apple (font-awesome U+f179)"  # fa-apple
+  "":    # fa-apple U+f179
+    prefix: "apple"
     body: ""
-  "∴":
-    prefix: "so (therefore) (U+2234)"
+  "∴":     # U+2234
+    prefix: "so (therefore)"
     body: "∴ "
-  "∵":
-    prefix: "bc (because) (U+2235)"
+  "∵":     # U+2235
+    prefix: "bc (because)"
     body: "∵ "
-  "✅":
-    prefix: "v (check) (U+2705)"
-    body: "✅ "
-  "✘":
-    prefix: "x (cross) (U+2718)"  # alt: ❌ U+274C
+  "✘":    # U+2718
+    prefix: "x (cross)"  # alt: ❌ emoji U+274C
     body: "✘ "
-  "💡":
-    prefix: "idea (bulb) (U+1F4A1)"   # alt:  fa-lightbulb-o
+# === === emoji
+  "✅":    # emoji U+2705
+    prefix: "v (check)"
+    body: "✅ "
+  "💡":    # emoji U+1F4A1
+    prefix: "idea (bulb)"   # alt:  fa-lightbulb-o U+f0eb
     body: "💡 "
+  "❓":    # emoji U+2753
+    prefix: "question ?"  # alt: fa-question U+f128
+    body: "❓ "
+  "❗":     # emoji U+2757
+    prefix: "exclamation !"
+    body: "❗ "
+  "⚠️":
+    prefix: "warning"
+    body: "⚠️ "
+  "📌":     # emoji U+1F4CC
+    prefix: "pin"
+    body: "📌 "
+  "🔖":    # emoji bookmark U+1F516
+    prefix: "tag"
+    body: "🔖"
+  "📅":    # emoji U+1f4c5
+    prefix: "calendar"
+    body: "📅"
+  "🐧":    # emoji U+1F427
+    prefix: "linux"
+    body: "🐧"
+  "🏁":    # emoji U+1F3C1
+    prefix: "windows"
+    body: "🏁"
+  "🍎":    # emoji U+1F34E
+    prefix: "apple"
+    body: "🍎"

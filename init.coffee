@@ -2,7 +2,7 @@
 # source http://flight-manual.atom.io/hacking-atom/sections/the-init-file/
 
 
-# =========== MRAKDOWN =============
+# === === === === === MRAKDOWN === === === === ===
 
 atom.commands.add 'atom-text-editor', 'markdown:paste-as-link', ->
   # register command called paste-as-link
@@ -143,7 +143,7 @@ atom.commands.add 'atom-text-editor', 'markdown:fold-url-of-link', ->
     editor.setSelectedBufferRange url_range
     editor.getLastSelection().fold()
 
-# =========== JSON =============
+# === === === === === JSON === === === === ===
 
 atom.commands.add 'atom-text-editor', 'json:copy-current-key-identifier', ->
   return unless editor = atom.workspace.getActiveTextEditor()
@@ -162,7 +162,8 @@ atom.commands.add 'atom-text-editor', 'json:copy-current-key-identifier', ->
 
   # TODO support squre brcket
 
-# =========== UTIL =============
+
+# === === === === === UTIL === === === === ===
 
 atom.commands.add 'atom-text-editor', 'util:print-scope-descriptor-by-current-cursor', ->
   return unless editor = atom.workspace.getActiveTextEditor()
@@ -206,19 +207,25 @@ atom.commands.add 'atom-text-editor', 'util:unfold-selected', ->
   ranges = editor.getSelectedBufferRanges()
   editor.destroyFoldsIntersectingBufferRange(range) for range in ranges
 
-atom.commands.add 'atom-text-editor', 'util:open-dot-atom-files', ->
+atom.commands.add 'atom-workspace', 'util:open-dot-atom-files', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   editorElement = atom.views.getView(editor)
   atom.commands.dispatch(editorElement, 'application:open-your-init-script')
   atom.commands.dispatch(editorElement, 'application:open-your-config')
   atom.commands.dispatch(editorElement, 'application:open-your-stylesheet')
   atom.commands.dispatch(editorElement, 'application:open-your-keymap')
+  atom.commands.dispatch(editorElement, 'application:open-your-snippets')
 
   path = require('path')
   os = require('os')
   _path = path.join(os.homedir(), 'CloudStation/Documents/Atom')
-  # _path = path.join(os.homedir(), 'CloudStation_prom/Documents/Atom')
-  paths = ['my_init.coffee', 'my_config.cson', 'my_styles.less', 'my_keymap.cson'].map (p) ->
+  paths = [
+    'my_init.coffee',
+    'my_config.cson',
+    'my_styles.less',
+    'my_keymap.cson',
+    'my_snippets.cson'
+  ].map (p) ->
     path.join _path, p
   setTimeout ->
     paths.reduce (cur, nextPath) ->
@@ -236,15 +243,15 @@ atom.commands.add 'atom-text-editor', 'util:switch-font-family', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   editor.scrollToCursorPosition()
 
-# highlighting lineEnd style
-setInterval( ->
-  text_color_subtle = '#777';
-  text_color_warning = '#f78a46';
-  # NOTE chage style using DOM api
-  lineEnd = document.querySelector 'status-bar a.line-ending-tile'
-  lineEnd.style.color = if lineEnd.textContent is 'LF' then text_color_subtle else text_color_warning
-  # this overwrite what style.css does
-, 5000);
+(paintLineEndUI = ->
+  setInterval( ->
+    text_color_subtle = '#777';
+    text_color_warning = '#f78a46';
+    # NOTE chage style using DOM api
+    lineEnd = document.querySelector 'status-bar a.line-ending-tile'
+    lineEnd.style.color = if lineEnd.textContent is 'LF' then text_color_subtle else text_color_warning
+    # this overwrite what style.css does
+  , 5000))()
 
 atom.commands.add 'atom-workspace', 'util:react-functional-component-template', ->
   return unless editor = atom.workspace.getActiveTextEditor()
@@ -263,7 +270,6 @@ atom.commands.add 'atom-workspace', 'util:react-functional-component-template', 
 
              export default #{fileNameCap}"""
   editor.getLastSelection().insertText template
-
 
 atom.commands.add 'atom-workspace', 'util:react-class-based-component-template', ->
   return unless editor = atom.workspace.getActiveTextEditor()

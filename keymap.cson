@@ -53,6 +53,12 @@
   'f3': 'find-and-replace:find-next'   # origin: 'cmd-g'
   'shift-f3': 'find-and-replace:find-previous'   # origin: 'shift-cmd-g'
   'shift-delete': 'editor:delete-line'
+  # === NOTE CMD FOR Package: Split Diff === #
+  'cmd-d t': 'split-diff:toggle'
+  'cmd-d up': 'split-diff:prev-diff'
+  'cmd-d down': 'split-diff:next-diff'
+  'cmd-d left': 'split-diff:copy-to-left'
+  'cmd-d right': 'split-diff:copy-to-right'
 # ===
 
 # === NOTE Common CMD FOR Linux/Windows ===
