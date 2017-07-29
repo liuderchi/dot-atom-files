@@ -1,9 +1,15 @@
 # == tiny customization when init
 # source http://flight-manual.atom.io/hacking-atom/sections/the-init-file/
 
+path = require('path')
+os = require('os')
 
 # === === === === === MRAKDOWN === === === === ===
 
+insertTextToAllSelection = (templateStr) ->
+  return unless editor = atom.workspace.getActiveTextEditor()
+  editor.getSelections().forEach (selection) ->
+    selection.insertText templateStr.replace('!', selection.getText())
 atom.commands.add 'atom-text-editor', 'markdown:paste-as-link', ->
   # register command called paste-as-link
   return unless editor = atom.workspace.getActiveTextEditor()
@@ -14,23 +20,16 @@ atom.commands.add 'atom-text-editor', 'markdown:paste-as-link', ->
 
   selection.insertText "[#{selection.getText()}](#{clipboardText})"  # template string
   # paste text via ATOM API
-
 atom.commands.add 'atom-text-editor', 'markdown:paste-as-link-in-bottom', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   selection = editor.getLastSelection()
   selectedText = selection.getText()
   url = atom.clipboard.read()
   selection.insertText "[#{selectedText}]: #{url} \"#{selectedText}\""
-
-atom.commands.add 'atom-text-editor', 'markdown:italic-text', ->
-  return unless editor = atom.workspace.getActiveTextEditor()
-  editor.getLastSelection().insertText "*#{editor.getLastSelection().getText()}*"
+atom.commands.add 'atom-text-editor', 'markdown:italic-text', () -> insertTextToAllSelection '*!*'
   # TODO auto select current word if no selection
   # TODO toggle back
-
-atom.commands.add 'atom-text-editor', 'markdown:bold-text', ->
-  return unless editor = atom.workspace.getActiveTextEditor()
-  editor.getLastSelection().insertText "**#{editor.getLastSelection().getText()}**"
+atom.commands.add 'atom-text-editor', 'markdown:bold-text', () -> insertTextToAllSelection '**!**'
 
 # templating
 
@@ -43,7 +42,6 @@ atom.commands.add 'atom-text-editor', 'markdown:paste-h1-filename', ->
   # BUG highlight error for regex = /[\/]/
 
   editor.getLastSelection().insertText "# #{fileNameCap}\n"
-
 atom.commands.add 'atom-text-editor', 'markdown:paste-today', ->
   return unless editor = atom.workspace.getActiveTextEditor()
 
@@ -100,7 +98,6 @@ atom.commands.add 'atom-text-editor', 'markdown:open-link-in-browser', ->
   atom.notifications.addInfo "## opening url:\n- `#{url}`"
   require('child_process').spawn 'firefox', [url]  # for linux platform
   # require('child_process').spawn('explorer.exe', ['www.google.com'])
-
 atom.commands.add 'atom-text-editor', 'markdown:toggle-fold-code', ->
   # inspired by pkg: markdown-folder
   {Point, Range} = require 'atom'
@@ -129,7 +126,6 @@ atom.commands.add 'atom-text-editor', 'markdown:toggle-fold-code', ->
       break
     row++
     break if row > editor.getLastBufferRow()
-
 atom.commands.add 'atom-text-editor', 'markdown:fold-url-of-link', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   return unless cursor = editor.getLastCursor()
@@ -162,7 +158,6 @@ atom.commands.add 'atom-text-editor', 'json:copy-current-key-identifier', ->
 
   # TODO support squre brcket
 
-
 # === === === === === UTIL === === === === ===
 
 atom.commands.add 'atom-text-editor', 'util:print-scope-descriptor-by-current-cursor', ->
@@ -171,14 +166,10 @@ atom.commands.add 'atom-text-editor', 'util:print-scope-descriptor-by-current-cu
   _scopes = cursor.getScopeDescriptor().scopes.map (scope)->"* \\>`#{scope.toString()}`"
   atom.notifications.addInfo "## cursor scope path\n#{_scopes.join('\n')}", {dismissable:true}
   # NOTE addInfo() supports markdown text
-  # atom command editor:log-cursor-scope supports
-
 CURSOR_MOVE_BIG = 10
-
 atom.commands.add 'atom-text-editor', 'util:move-up-big', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   editor.moveUp(CURSOR_MOVE_BIG)
-
 atom.commands.add 'atom-text-editor', 'util:move-down-big', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   editor.moveDown(CURSOR_MOVE_BIG)
@@ -194,19 +185,16 @@ atom.commands.add 'atom-text-editor', 'util:tokenize-selected-text-by-grammar', 
   atom.notifications.addInfo(
     "tokenized and printed to console.\n* grammar: `#{grammarName}`\n* ScopeName: `#{scopeName}`",
     {dismissable:true})
-
 atom.commands.add 'atom-text-editor', 'util:print-current-line', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   return unless cursor = editor.getLastCursor()
   range = cursor.getCurrentLineBufferRange {includeNewline: false}
   line = editor.getTextInBufferRange range
   console.log line
-
 atom.commands.add 'atom-text-editor', 'util:unfold-selected', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   ranges = editor.getSelectedBufferRanges()
   editor.destroyFoldsIntersectingBufferRange(range) for range in ranges
-
 atom.commands.add 'atom-workspace', 'util:open-dot-atom-files', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   editorElement = atom.views.getView(editor)
@@ -234,7 +222,6 @@ atom.commands.add 'atom-workspace', 'util:open-dot-atom-files', ->
         atom.workspace.open(nextPath, splitOption)
     , Promise.resolve('start')
   , 1000
-
 atom.commands.add 'atom-text-editor', 'util:switch-font-family', ->
   ff = atom.config.get('editor.fontFamily')
   fz = atom.config.get('editor.fontSize')
@@ -242,17 +229,15 @@ atom.commands.add 'atom-text-editor', 'util:switch-font-family', ->
   atom.config.set('editor.fontSize', fz + (if ff is '' then 6 else -6))
   return unless editor = atom.workspace.getActiveTextEditor()
   editor.scrollToCursorPosition()
-
 (paintLineEndUI = ->
   setInterval( ->
-    text_color_subtle = '#777';
-    text_color_warning = '#f78a46';
+    text_color_subtle = '#777'
+    text_color_warning = '#f78a46'
     # NOTE chage style using DOM api
     lineEnd = document.querySelector 'status-bar a.line-ending-tile'
     lineEnd.style.color = if lineEnd.textContent is 'LF' then text_color_subtle else text_color_warning
     # this overwrite what style.css does
   , 5000))()
-
 atom.commands.add 'atom-workspace', 'util:react-functional-component-template', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   path = require('path')
@@ -270,7 +255,6 @@ atom.commands.add 'atom-workspace', 'util:react-functional-component-template', 
 
              export default #{fileNameCap}"""
   editor.getLastSelection().insertText template
-
 atom.commands.add 'atom-workspace', 'util:react-class-based-component-template', ->
   return unless editor = atom.workspace.getActiveTextEditor()
   path = require('path')
@@ -290,3 +274,10 @@ atom.commands.add 'atom-workspace', 'util:react-class-based-component-template',
 
              export default #{fileNameCap}"""
   editor.getLastSelection().insertText template
+atom.commands.add 'atom-text-editor', 'util:react-add-component-syntax', () -> insertTextToAllSelection('<! />')
+atom.commands.add 'atom-workspace', 'util:open-zshrc', ->
+  _path = path.join(os.homedir(), '.zshrc')
+  atom.workspace.open(_path)
+atom.commands.add 'atom-workspace', 'util:open-oh-my-zsh-theme-agnoster', ->
+  _path = path.join(os.homedir(), '.oh-my-zsh/themes/Myagnoster.zsh-theme')
+  atom.workspace.open(_path)
