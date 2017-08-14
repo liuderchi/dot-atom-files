@@ -12,6 +12,7 @@
 @_androidGreen: #A4C639;
 @_matrixGreen: #1ec503;
 @_cursorOrange: #FF6600;
+@_mtkIcon: rgba(243, 154, 30, 1);
 
 @_listItemRed: #ff869a;
 
@@ -200,8 +201,11 @@ linter-message > span {
 // NOTE atom_v1.13 deprecate ::shadow
 atom-text-editor.editor {
   .cursor {
-    border-color: @_cursorOrange;  //@_matrixGreen;
-    border-width: 3px;
+    border-color: fadeout(@_mtkIcon, 50%);
+    border-width: @font-size / 1.2;
+    // blinkness
+    transition: opacity 1.8s;
+    // opacity: 1 !important;
   }
 
   .fold-marker {  // folded code
