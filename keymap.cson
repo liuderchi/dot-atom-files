@@ -1,7 +1,7 @@
 # NOTE repeated keymap Overides former keymap
 # NOTE key Binding Resolver, use ',' as OR operator in selector
 
-# === NOTE CMD for Linux, Mac ONLY ===
+# === NOTE Common CMD for Linux/Mac ===
 '.platform-linux, .platform-darwin':
   # === FOCUS ON SPLITTED PANE ===
   'cmd-left': 'window:focus-pane-on-left'    # NOTE mac: require unset
@@ -27,7 +27,7 @@
   'shift-cmd up': 'window:move-active-item-to-pane-above'
   'shift-cmd down': 'window:move-active-item-to-pane-below'
 
-# === NOTE 0628 CMD for Darwin ONLY ===
+# === NOTE CMD for Mac ONLY (17-06-28) ===
 '.platform-darwin':
   # === FOCUS ON PREVIOUS SPLITTED PANE ===
   'ctrl-z': 'window:focus-previous-pane'  # origin: cmd-z is undo
@@ -59,6 +59,10 @@
   'cmd-d down': 'split-diff:next-diff'
   'cmd-d left': 'split-diff:copy-to-left'
   'cmd-d right': 'split-diff:copy-to-right'
+  # === NOTE CMD FOR Package: quick-highlight === #
+  'f1': 'quick-highlight:toggle'
+  'shift-f1': 'quick-highlight:clear'
+  # TODO test with Linux/Windows
 # ===
 
 # === NOTE Common CMD FOR Linux/Windows ===
