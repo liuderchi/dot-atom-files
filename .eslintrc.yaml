@@ -14,24 +14,24 @@ parserOptions:
 rules:
   no-console: off
   no-unused-vars:
-  - warn
-  - vars: all
-    args: after-used
+    - warn
+    - vars: all
+      args: after-used
   comma-dangle:
-  - error
-  -
-    arrays: always-multiline
-    objects: always-multiline
-    functions: ignore
+    - error
+    -
+      arrays: always-multiline
+      objects: always-multiline
+      functions: ignore
   indent:
-  - warn
-  - 2
+    - warn
+    - 2
   linebreak-style:
-  - error
-  - unix
+    - error
+    - unix
   quotes:
-  - warn
-  - single
+    - warn
+    - single
   semi:
-  - error
-  - never
+    - error
+    - never
