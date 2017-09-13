@@ -1,0 +1,21 @@
+{
+  "name": "dot-atom-files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "eslint": "eslint ./dot-atom",
+    "test": "npm run eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuderchi/dot-atom-files.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liuderchi/dot-atom-files/issues"
+  },
+  "homepage": "https://github.com/liuderchi/dot-atom-files#readme"
+}
