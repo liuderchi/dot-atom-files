@@ -17,6 +17,12 @@ rules:
   - warn
   - vars: all
     args: after-used
+  comma-dangle:
+  - error
+  -
+    arrays: always-multiline
+    objects: always-multiline
+    functions: ignore
   indent:
   - warn
   - 2

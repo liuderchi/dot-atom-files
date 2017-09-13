@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/liuderchi/dot-atom-files/issues"
   },
-  "homepage": "https://github.com/liuderchi/dot-atom-files#readme"
+  "homepage": "https://github.com/liuderchi/dot-atom-files#readme",
+  "devDependencies": {
+    "eslint": "^4.6.1"
+  }
 }
