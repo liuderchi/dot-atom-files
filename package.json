@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/liuderchi/dot-atom-files#readme",
   "devDependencies": {
-    "eslint": "^4.6.1"
+    "eslint": "^4.18.2"
   }
 }
